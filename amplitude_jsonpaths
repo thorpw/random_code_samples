@@ -1,0 +1,172 @@
+--Create table to hold Amplitude data
+CREATE TABLE l1_amplitude.amplitude_events (
+	app                  VARCHAR(50),
+	device_carrier       VARCHAR(50),
+	schema               VARCHAR(765) ENCODE ZSTD,
+	city                 VARCHAR(765) ENCODE ZSTD,
+	user_id              VARCHAR(1000),
+	uuid                 VARCHAR(765) ENCODE ZSTD,
+	event_time           TIMESTAMP ENCODE ZSTD,
+	platform             VARCHAR(765) ENCODE ZSTD,
+	os_version           VARCHAR(765) ENCODE ZSTD,
+	amplitude_id         VARCHAR(765) ENCODE ZSTD,
+	processed_time       VARCHAR(765) ENCODE ZSTD,
+	user_creation_time   TIMESTAMP ENCODE ZSTD,
+	version_name         VARCHAR(765) ENCODE ZSTD,
+	ip_address           VARCHAR(765) ENCODE ZSTD,
+	paying               VARCHAR(765) ENCODE ZSTD,
+	dma                  VARCHAR(765) ENCODE ZSTD,
+	identity_user_id     VARCHAR(765) ENCODE ZSTD,
+	identity_business_id VARCHAR(765) ENCODE ZSTD,
+	business_context     VARCHAR(765) ENCODE ZSTD,
+	client_upload_time   TIMESTAMP ENCODE ZSTD,
+	insert_id            VARCHAR(765) ENCODE ZSTD,
+	event_type           VARCHAR(765) ENCODE ZSTD,
+	library              VARCHAR(765) ENCODE ZSTD,
+	device_type          VARCHAR(765) ENCODE ZSTD,
+	device_manufacturer  VARCHAR(765) ENCODE ZSTD,
+	start_version        VARCHAR(765) ENCODE ZSTD,
+	location_lng         VARCHAR(765) ENCODE ZSTD,
+	server_upload_time   TIMESTAMP ENCODE ZSTD,
+	event_id             VARCHAR(765) ENCODE ZSTD,
+	location_lat         VARCHAR(765) ENCODE ZSTD,
+	os_name              VARCHAR(765) ENCODE ZSTD,
+	amplitude_event_type VARCHAR(765) ENCODE ZSTD,
+	device_brand         VARCHAR(765) ENCODE ZSTD,
+	groups               VARCHAR(765) ENCODE ZSTD,
+	application          VARCHAR(765) ENCODE ZSTD,
+	first_event          VARCHAR(765) ENCODE ZSTD,
+	device_id            VARCHAR(765) ENCODE ZSTD,
+	language             VARCHAR(765) ENCODE ZSTD,
+	device_model         VARCHAR(765) ENCODE ZSTD,
+	country              VARCHAR(765) ENCODE ZSTD,
+	region               VARCHAR(765) ENCODE ZSTD,
+	adid                 VARCHAR(765) ENCODE ZSTD,
+	session_id           VARCHAR(765) ENCODE ZSTD,
+	device_family        VARCHAR(765) ENCODE ZSTD,
+	idfa                 VARCHAR(765) ENCODE ZSTD,
+	client_event_time    TIMESTAMP ENCODE ZSTD
+);
+
+
+--jsonpaths file using bracket expression
+{
+    "jsonpaths": [
+    "$['app']",
+    "$['device_carrier']",
+    "$['$schema']",
+    "$['city']",
+    "$['user_id']",
+    "$['uuid']",
+    "$['event_time']",
+    "$['platform']",
+    "$['os_version']",
+    "$['amplitude_id']",
+    "$['user_creation_time']",
+    "$['version_name']",
+    "$['ip_address']",
+    "$['paying']",
+    "$['dma']",
+    "$['user_properties']['identity-user-id']",
+    "$['user_properties']['identity-business-id']",
+    "$['user_properties']['business-context']",
+    "$['client_upload_time']",
+    "$['insert_id']",
+    "$['event_type']",
+    "$['library']",
+    "$['device_type']",
+    "$['device_manufacturer']",
+    "$['start_version']",
+    "$['location_lng']",
+    "$['server_upload_time']",
+    "$['event_id']",
+    "$['location_lat']",
+    "$['os_name']",
+    "$['processed_time']",
+    "$['amplitude_event_type']",
+    "$['device_brand']",
+    "$['groups']",
+    "$['event_properties']['application']",
+    "$['data']['first_event']",
+    "$['device_id']",
+    "$['language']",
+    "$['device_model']",
+    "$['country']",
+    "$['region']",
+    "$['adid']",
+    "$['session_id']",
+    "$['device_family']",
+    "$['idfa']",
+    "$['client_event_time']"
+    ]
+}
+
+--sample json
+{
+	"app": 14623347,
+	"device_carrier": null,
+	"$schema": 10,
+	"city": "Dublin",
+	"user_id": "0b12b2e5",
+	"uuid": "8368884e",
+	"event_time": "2016-11-18 20:38:28.938000",
+	"platform": "Web",
+	"os_version": "49",
+	"amplitude_id": 5565,
+	"user_creation_time": "2016-01-18 20:38:28.938000",
+	"version_name": null,
+	"ip_address": "33.33.33.225",
+	"paying": null,
+	"dma": null,
+	"user_properties": {
+		"identity-user-id": "0b12b2e5",
+		"identity-business-id": "54aa9225",
+		"business-context": "business"
+	},
+	"client_upload_time": "2016-10-18 20:38:29.490000",
+	"$insert_id": "e5304",
+	"event_type": "w\/web",
+	"library": "amplitude-js\/2.9.0",
+	"device_type": "Mac",
+	"device_manufacturer": null,
+	"start_version": null,
+	"location_lng": null,
+	"server_upload_time": "2016-11-18 20:38:29.629000",
+	"event_id": 12,
+	"location_lat": null,
+	"os_name": "Chrome",
+	"amplitude_event_type": null,
+	"device_brand": null,
+	"groups": {},
+	"event_properties": {
+		"application": "secret"
+	},
+	"data": {
+		"first_event": true
+	},
+	"device_id": "26b3c573",
+	"language": "English",
+	"device_model": "Mac",
+	"country": "secret",
+	"region": "secret",
+	"adid": null,
+	"session_id": 1461011908771,
+	"device_family": "secret",
+	"idfa": null,
+	"client_event_time": "2016-04-18 20:38:28.799000"
+}
+
+--move data from s3 to Redshift using COPY command
+COPY l1_amplitude.amplitude_events
+FROM 's3://file/file.csv.gzip'
+CREDENTIALS 'aws_access_key_id=123;aws_secret_access_key=123'
+JSON 's3://file/amplitude_jsonpaths.json'
+GZIP
+IGNOREHEADER 1
+REGION 'us-east-2'
+TIMEFORMAT 'YYYY-MM-DD HH:MI:SS.US'
+TRIMBLANKS
+BLANKSASNULL
+EMPTYASNULL
+TRUNCATECOLUMNS
+COMPUPDATE ON;

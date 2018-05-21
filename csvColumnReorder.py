@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env
 
 #Script to read in a file, reorder columns based on specified order and write to new file. If the file is not empty.
 

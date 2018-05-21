@@ -2,13 +2,13 @@
 
 #Script to read in a file, reorder columns based on specified order and write to new file. If the file is not empty.
 
-####################################
-# File name: csvColumnReorder.py   #
-# Date created: 15/5/2018          #
-# Author: Warren Thorp             #
-# Date last modified: 15/5/2018    #
-# Python Version: 3.6              #
-####################################
+#####################################
+# File name: csv_column_reorder.py #
+# Date created: 15/5/2018           #
+# Author: Warren Thorp              #
+# Date last modified: 15/5/2018     #
+# Python Version: 3.6               # 
+#####################################
 
 import csv
 import os

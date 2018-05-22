@@ -98,4 +98,4 @@ def numberOfDays():
 
 amount = (numberOfDays() * dailyRate()) * numberOfMonths()
 
-"You will earn " + "€" + str(amount) + " annually"
+print("You will earn " + "€" + str(amount) + " annually")
